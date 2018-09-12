@@ -1,0 +1,7 @@
+C:\Users\tpiek\Documents\GitHub\Szachy\Szachy\obj\Debug\Szachy.csprojAssemblyReference.cache
+C:\Users\tpiek\Documents\GitHub\Szachy\Szachy\obj\Debug\Szachy.csproj.CoreCompileInputs.cache
+C:\Users\tpiek\Documents\GitHub\Szachy\Szachy\bin\Debug\Szachy.exe.config
+C:\Users\tpiek\Documents\GitHub\Szachy\Szachy\bin\Debug\Szachy.exe
+C:\Users\tpiek\Documents\GitHub\Szachy\Szachy\bin\Debug\Szachy.pdb
+C:\Users\tpiek\Documents\GitHub\Szachy\Szachy\obj\Debug\Szachy.exe
+C:\Users\tpiek\Documents\GitHub\Szachy\Szachy\obj\Debug\Szachy.pdb
