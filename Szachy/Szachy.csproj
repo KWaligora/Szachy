@@ -42,6 +42,8 @@
     <Compile Include="Pieces\Horse.cs" />
     <Compile Include="Pieces\Queen.cs" />
     <Compile Include="Pieces\Runner.cs" />
+    <Compile Include="Pieces\King.cs" />
+    <Compile Include="Pieces\Queen.cs" />
     <Compile Include="Pieces\Tower.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
