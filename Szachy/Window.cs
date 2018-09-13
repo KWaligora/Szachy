@@ -12,6 +12,8 @@ namespace Szachy
     class Window : Form
     {
         private Panel board;
+        Bitmap selectBitmap;
+        int selectX, selectY;
 
         public Window()
         {
@@ -30,6 +32,10 @@ namespace Szachy
             this.board.Name = "board";
             this.board.Size = new System.Drawing.Size(600, 600);
             this.board.TabIndex = 0;
+            this.board.Paint += new System.Windows.Forms.PaintEventHandler(this.board_Paint);
+            this.board.MouseClick += new System.Windows.Forms.MouseEventHandler(this.board_MouseClick);
+
+            this.selectBitmap = global::Szachy.Properties.Resources.select;
             // 
             // Window
             // 
@@ -37,7 +43,20 @@ namespace Szachy
             this.Controls.Add(this.board);
             this.Name = "Window";
             this.ResumeLayout(false);
+            selectX = 0;
+            selectY = 0;
+        }
 
+        private void board_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawImage(selectBitmap, new Point(19 + selectX * 70, 19 + selectY * 70));
+        }
+
+        private void board_MouseClick(object sender, MouseEventArgs e)
+        {
+            this.selectX = (e.X - 20) / 70;
+            this.selectY = (e.Y - 20) / 70;
+            this.board.Invalidate();
         }
     }
 }

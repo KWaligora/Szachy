@@ -40,9 +40,8 @@ namespace Szachy
                  connection.send("Hello too!");
              }
              */
-            Board b = new Board();
             Application.Run(new Window());
-            Console.ReadKey();
+            //Console.ReadKey();
             return 0;
         }
     }
