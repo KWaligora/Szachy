@@ -38,6 +38,8 @@
     <Compile Include="Connection.cs" />
     <Compile Include="Pieces\Pawn.cs" />
     <Compile Include="Pieces\Piece.cs" />
+    <Compile Include="Pieces\Horse.cs" />
+    <Compile Include="Pieces\Runner.cs" />
     <Compile Include="Pieces\Tower.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
