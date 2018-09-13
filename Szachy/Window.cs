@@ -61,7 +61,7 @@ namespace Szachy
                     Piece piece = boardModel.getPiece(pieceID);
                     int y = i / 8;
                     int x = i % 8;
-                    e.Graphics.DrawImage(piece.getImage(), new Point(19 + x * 70, 19 + y * 70));
+                    e.Graphics.DrawImage(piece.getImage(), 19 + x * 70, 19 + y * 70, 70, 70);
                 }
             }
         }

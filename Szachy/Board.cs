@@ -14,15 +14,57 @@ namespace Szachy
     {
         byte[] board = new byte[64];
         Piece[] pieces = new Piece[32];
-        
+        Bitmap pieceBitmap;
         public Board()
+        {
+            pieceBitmap = global::Szachy.Properties.Resources.pieces;
+            //czarne wieze
+            pieces[0] = new Tower(0, pieceBitmap.Clone(new Rectangle(0,0,70,70), pieceBitmap.PixelFormat));
+            pieces[7] = new Tower(7, pieceBitmap.Clone(new Rectangle(0,0,70,70), pieceBitmap.PixelFormat));
+            //czarne konie
+            pieces[1] = new Horse(1, pieceBitmap.Clone(new Rectangle(70,0,70,70), pieceBitmap.PixelFormat));
+            pieces[6] = new Horse(6, pieceBitmap.Clone(new Rectangle(70,0,70,70), pieceBitmap.PixelFormat));
+            //czarne gonce
+            pieces[2] = new Runner(2, pieceBitmap.Clone(new Rectangle(140,0,70,70), pieceBitmap.PixelFormat));
+            pieces[5] = new Runner(5, pieceBitmap.Clone(new Rectangle(140,0,70,70), pieceBitmap.PixelFormat));
+            //czarna krolowa
+            pieces[3] = new Queen(3, pieceBitmap.Clone(new Rectangle(210,0,70,70), pieceBitmap.PixelFormat));
+            //czarny krol
+            pieces[4] = new King(4, pieceBitmap.Clone(new Rectangle(280,0,70,70), pieceBitmap.PixelFormat));
+
+            for (byte i = 8; i < 16; i++) { //pionki czarne
+                pieces[i] = new Pawn(i, pieceBitmap.Clone(new Rectangle(350,0,70,70), pieceBitmap.PixelFormat));
+            }
+
+            for (byte i = 16; i < 24; i++) { //pionki biale
+                pieces[i] = new Pawn(i, pieceBitmap.Clone(new Rectangle(350,70,70,70), pieceBitmap.PixelFormat));
+            }
+
+            //biale wieze
+            pieces[24] = new Tower(24, pieceBitmap.Clone(new Rectangle(0,70,70,70), pieceBitmap.PixelFormat));
+            pieces[31] = new Tower(31, pieceBitmap.Clone(new Rectangle(0, 70, 70, 70), pieceBitmap.PixelFormat));
+            //czarne konie
+            pieces[25] = new Horse(25, pieceBitmap.Clone(new Rectangle(70, 70, 70, 70), pieceBitmap.PixelFormat));
+            pieces[30] = new Horse(30, pieceBitmap.Clone(new Rectangle(70, 70, 70, 70), pieceBitmap.PixelFormat));
+            //czarne gonce
+            pieces[26] = new Runner(26, pieceBitmap.Clone(new Rectangle(140, 70, 70, 70), pieceBitmap.PixelFormat));
+            pieces[29] = new Runner(29, pieceBitmap.Clone(new Rectangle(140, 70, 70, 70), pieceBitmap.PixelFormat));
+            //czarna krolowa
+            pieces[27] = new Queen(27, pieceBitmap.Clone(new Rectangle(210, 70, 70, 70), pieceBitmap.PixelFormat));
+            //czarny krol
+            pieces[28] = new King(28, pieceBitmap.Clone(new Rectangle(280, 70, 70, 70), pieceBitmap.PixelFormat));
+
+            setupBoard();
+        }
+
+        void setupBoard()
         {
             for (int i = 0; i < 16; i++)
             {
                 board[i] = Convert.ToByte(i); // oryginalnie board[i] = Convert.ToByte(i + 1); // out of bounds
             }
 
-            for (int i = 16; i<48; i++)
+            for (int i = 16; i < 48; i++)
             {
                 board[i] = 32; // -1 nie wchodzi do byte :(
             }
@@ -31,11 +73,6 @@ namespace Szachy
             {
                 board[i] = Convert.ToByte(i - 32); // oryginalnie board[i] = Convert.ToByte(i - 31); // out of bounds
             }
-
-            for (int i = 0; i < 32; i++) {
-                pieces[i] = new Pawn(0, global::Szachy.Properties.Resources.select);
-            }
-            
         }
 
         public int get_piece(int x)
