@@ -12,9 +12,7 @@ namespace Szachy.Pieces
         public Pawn(byte id, Bitmap image, byte [] board) : base(id, image, board) { } //moze pozostac pusty
 
         public override bool move(byte x, byte y)
-        {
-            board[y] = board[x];
-            board[x] = 32;
+        {      
             return true;
         }
 

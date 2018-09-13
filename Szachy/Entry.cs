@@ -12,7 +12,7 @@ namespace Szachy
        
         public static int Main(String[] args)
         {
-            /* Connection connection;
+             /*Connection connection;
 
              switch (args[0].ToUpper()) {
                  case "SERVER":
@@ -38,8 +38,8 @@ namespace Szachy
              {
                  connection.receive();
                  connection.send("Hello too!");
-             }
-             */
+             }*/
+             
             Board board = new Board();
             Application.Run(new Window(board));
             

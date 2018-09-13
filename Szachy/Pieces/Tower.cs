@@ -8,9 +8,9 @@ using System.Drawing;
 
 namespace Szachy.Pieces
 {
-    class Tower: Piece
+    class Tower : Piece
     {
-        public Tower(byte id, Bitmap image, byte [] board) : base(id, image, board) { } //moze pozostac pusty
+        public Tower(byte id, Bitmap image, byte[] board) : base(id, image, board) { } //moze pozostac pusty
 
         public override bool move(byte x, byte y)
         {
