@@ -10,7 +10,8 @@ namespace Szachy
     class Board
     {
         byte[] board = new byte[64];
-
+        Piece[] pieces = new Piece[32];
+        
         public Board()
         {
             for (int i = 0; i < 16; i++)
@@ -21,7 +22,7 @@ namespace Szachy
             for (int i = 48; i < 64; i++)
             {
                 board[i] = Convert.ToByte(i - 31);
-            } 
+            }
         }
 
         public int get_piece(int x)
