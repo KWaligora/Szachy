@@ -15,10 +15,11 @@ namespace Szachy
         Bitmap selectBitmap;
         int selectX, selectY;
 
-        Board BoardModel;
+        Board boardModel;
 
         public Window(Board boardModel)
         {
+            this.boardModel = boardModel;
             InitializeComponent();
         }
 
@@ -54,10 +55,14 @@ namespace Szachy
             e.Graphics.DrawImage(selectBitmap, new Point(19 + selectX * 70, 19 + selectY * 70));
             for(int i = 0; i<64; i++)
             {
-                byte pieceID = BoardModel.getPieceID(i);
-                Piece piece = BoardModel.getPiece(pieceID);
-                int y = i / 8;
-                int x = i % 8;
+                byte pieceID = boardModel.getPieceID(i);
+                if (pieceID < 32)
+                {
+                    Piece piece = boardModel.getPiece(pieceID);
+                    int y = i / 8;
+                    int x = i % 8;
+                    e.Graphics.DrawImage(piece.getImage(), new Point(19 + x * 70, 19 + y * 70));
+                }
             }
         }
 

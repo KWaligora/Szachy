@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace Szachy.Pieces
 {
     class Pawn: Piece
     {
-        protected byte id;
+        public Pawn(byte id, Bitmap image) : base(id, image) { }
 
         public override bool move()
         {
