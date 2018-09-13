@@ -62,9 +62,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\board.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="img\board.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
