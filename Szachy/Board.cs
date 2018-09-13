@@ -15,8 +15,8 @@ namespace Szachy
         byte[] board = new byte[64];
         Piece[] pieces = new Piece[32];
         Bitmap pieceBitmap;
-        byte click=0;   //poprzednie kliknięcie, początkowe współżędne
-        byte numer;
+        bool pieceSelected = false;
+        byte selectedPiecePosition;
         public Board()
         {
             pieceBitmap = global::Szachy.Properties.Resources.pieces;
@@ -105,17 +105,22 @@ namespace Szachy
 
         public void onClick(byte i)
         {
+            MessageBox.Show(i.ToString());
 
-            if (click != 0)
+            if (!pieceSelected) // jeżeli jeszcze nic nie zaznaczylem
             {
-                pieces[click].move(numer, i);
-                click = 0;
+                if (board[i] < 32) // jezeli pole nie jest puste
+                {
+                    selectedPiecePosition = i; //zapamietaj pozycje
+                    pieceSelected = true; //pamietaj, ze masz cos zaznaczone
+                }
             }
-
-            if (board[i] < 32)
+            else //jezeli zaznaczylem
             {
-                click = board[i];
-                numer = i;
+                board[i] = board[selectedPiecePosition]; //przesun
+                board[selectedPiecePosition] = 32; //posprzataj
+                pieceSelected = false; //usun zaznaczenie
+                //powiadomienie do serwera
             }
             
         }
