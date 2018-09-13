@@ -30,7 +30,7 @@ namespace Szachy
             {
                 client = new TcpClient();
                 Console.WriteLine("Connecting at: {0} {1}", ip, port);
-                client.Connect(ip, 1024);
+                client.Connect(ip, port);
                 if (client.Connected)
                     Console.WriteLine("Connected");
             }
