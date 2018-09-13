@@ -7,3 +7,12 @@ C:\Users\tpiek\Documents\GitHub\Szachy\Szachy\obj\Debug\Szachy.pdb
 C:\Users\tpiek\Documents\GitHub\Szachy\Szachy\obj\Debug\Szachy.csproj.GenerateResource.cache
 C:\Users\tpiek\Documents\GitHub\Szachy\Szachy\obj\Debug\Szachy.Properties.Resources.resources
 C:\Users\tpiek\Documents\GitHub\Szachy\Szachy\obj\Debug\Szachy.Window.resources
+D:\programowanie\Szachy\Szachy\bin\Debug\Szachy.exe
+D:\programowanie\Szachy\Szachy\bin\Debug\Szachy.pdb
+D:\programowanie\Szachy\Szachy\obj\Debug\Szachy.csprojAssemblyReference.cache
+D:\programowanie\Szachy\Szachy\obj\Debug\Szachy.Properties.Resources.resources
+D:\programowanie\Szachy\Szachy\obj\Debug\Szachy.Window.resources
+D:\programowanie\Szachy\Szachy\obj\Debug\Szachy.csproj.GenerateResource.cache
+D:\programowanie\Szachy\Szachy\obj\Debug\Szachy.csproj.CoreCompileInputs.cache
+D:\programowanie\Szachy\Szachy\obj\Debug\Szachy.exe
+D:\programowanie\Szachy\Szachy\obj\Debug\Szachy.pdb

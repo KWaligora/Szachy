@@ -12,9 +12,8 @@ namespace Szachy
        
         public static int Main(String[] args)
         {
-            Application.Run(new Window());
-
             Connection connection;
+            
             switch (args[0].ToUpper()) {
                 case "SERVER":
                 connection = new Connection(true, args[1], short.Parse(args[2]));
@@ -40,6 +39,9 @@ namespace Szachy
                 connection.receive();
                 connection.send("Hello too!");
             }
+
+            Application.Run(new Window());
+
             Console.ReadKey();
             return 0;
         }
