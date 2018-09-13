@@ -15,6 +15,7 @@ namespace Szachy
         Bitmap selectBitmap;
         int selectX, selectY;
         private TextBox chatLog;
+        private TextBox textBox1;
         Board boardModel;
 
         public Window(Board boardModel)
@@ -27,6 +28,7 @@ namespace Szachy
         {
             this.board = new System.Windows.Forms.Panel();
             this.chatLog = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // board
@@ -41,25 +43,39 @@ namespace Szachy
             // 
             // chatLog
             // 
-            this.chatLog.Location = new System.Drawing.Point(600, 300);
+            this.chatLog.Location = new System.Drawing.Point(610, 300);
             this.chatLog.Multiline = true;
             this.chatLog.Name = "chatLog";
-            this.chatLog.Size = new System.Drawing.Size(200, 280);
+            this.chatLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.chatLog.Size = new System.Drawing.Size(180, 250);
             this.chatLog.TabIndex = 1;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(610, 560);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(180, 20);
+            this.textBox1.TabIndex = 2;
             // 
             // Window
             // 
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 600);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.chatLog);
             this.Controls.Add(this.board);
             this.Name = "Window";
             this.ResumeLayout(false);
             this.PerformLayout();
 
-            selectBitmap = global::Szachy.Properties.Resources.select;
-            selectX = 0;
-            selectY = 0;
+            initFields();
+        }
+
+        private void initFields()
+        {
+            this.selectBitmap = global::Szachy.Properties.Resources.select;
+            this.selectX = 0;
+            this.selectY = 0;
         }
 
         private void board_Paint(object sender, PaintEventArgs e)
