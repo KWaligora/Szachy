@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Szachy.Pieces
 {
-    class Pawn: Piece
+    class Tower: Piece
     {
         protected byte id;
 
@@ -31,3 +31,4 @@ namespace Szachy.Pieces
         }
     }
 }
+

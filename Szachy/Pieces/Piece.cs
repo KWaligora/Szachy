@@ -11,10 +11,14 @@ namespace Szachy
     {
         Bitmap obrazek;
 
+        protected byte id;
+
         public abstract bool move();
 
         public abstract void draw();
 
         public abstract bool special();
+
+        public abstract byte getPieceID();
     }
 }

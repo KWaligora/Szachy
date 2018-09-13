@@ -38,5 +38,15 @@ namespace Szachy
         {
             return board;
         }
+
+        public byte getPieceID(int x)
+        {
+            return pieces[x].getPieceID();
+        }
+
+        public Piece getPiece(int x)
+        {
+            return pieces[x];
+        }
     }
 }
