@@ -54,11 +54,10 @@ namespace Szachy
             e.Graphics.DrawImage(selectBitmap, new Point(19 + selectX * 70, 19 + selectY * 70));
             for(int i = 0; i<64; i++)
             {
-                byte pieceID = BoardModel.getPieceId(i);
+                byte pieceID = BoardModel.getPieceID(i);
                 Piece piece = BoardModel.getPiece(pieceID);
                 int y = i / 8;
                 int x = i % 8;
-                piece.draw()
             }
         }
 
