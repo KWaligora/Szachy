@@ -14,7 +14,7 @@ namespace Szachy.Pieces
         public override bool move(byte x, byte y)
         {
             board[y] = board[x];
-            board[x] = 0;
+            board[x] = 32;
             return true;
         }
 

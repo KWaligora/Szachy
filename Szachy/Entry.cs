@@ -42,6 +42,7 @@ namespace Szachy
              */
             Board board = new Board();
             Application.Run(new Window(board));
+            
             //Console.ReadKey();
             return 0;
         }

@@ -55,6 +55,7 @@ namespace Szachy
             pieces[28] = new King(28, pieceBitmap.Clone(new Rectangle(280, 70, 70, 70), pieceBitmap.PixelFormat), board);
 
             setupBoard();
+            //pieces[18].move(12, 20); ACHTUNG TESTEN
         }
 
         void setupBoard()
@@ -99,5 +100,11 @@ namespace Szachy
         {
             return pieces[x];
         }
+
+        public void onClick(byte i)
+        {
+
+        }
+
     }
 }
