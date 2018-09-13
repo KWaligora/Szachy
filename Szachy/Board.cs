@@ -32,5 +32,10 @@ namespace Szachy
             }
             return -1;
         }
+
+        public byte [] get_board()
+        {
+            return board;
+        }
     }
 }
