@@ -14,7 +14,14 @@ namespace Szachy.Pieces
 
         public override bool move(byte x, byte y)
         {
-            return true;
+            int xp = x / 8;
+            int xq = x % 8;
+            int yp = y / 8;
+            int yq = y % 8;
+
+            if ((Math.Abs(xp - yp) == 1 && Math.Abs(xq - yq) == 2) || (Math.Abs(xp - yp) == 2 && Math.Abs(xq - yq) == 1)) return true;
+
+            return false;
         }
 
         public override bool special()
