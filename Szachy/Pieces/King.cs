@@ -10,7 +10,7 @@ namespace Szachy.Pieces
 {
     class King: Piece
     {
-        public King(byte id, Bitmap image) : base(id, image) { } //moze pozostac pusty
+        public King(byte id, Bitmap image, Piece [] pieces) : base(id, image, pieces) { } //moze pozostac pusty
 
         public override bool move()
         {

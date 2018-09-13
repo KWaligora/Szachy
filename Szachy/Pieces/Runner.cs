@@ -10,7 +10,7 @@ namespace Szachy.Pieces
 {
     class Runner: Piece
     {
-        public Runner(byte id, Bitmap image) : base(id, image) { } //moze pozostac pusty
+        public Runner(byte id, Bitmap image, Piece [] pieces) : base(id, image, pieces) { } //moze pozostac pusty
 
         public override bool move()
         {
