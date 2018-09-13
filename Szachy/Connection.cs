@@ -6,27 +6,58 @@ using System.Threading.Tasks;
 
 using System.Net;
 using System.Net.Sockets;
+using System.IO;
 
 namespace Szachy
 {
     public class Connection
     {
-        public Connection(bool host)
+        public bool isHost { get; }
+        TcpListener server;
+        TcpClient client; // communicate with the server
+        public Connection(bool isHost, string ip, short port)
         {
-            Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
-            Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
-            Socket internalSocket;
-            byte[] recBuffer = new byte[256];
+            this.isHost = isHost;
+            if (isHost)
+            {
+                server = new TcpListener(IPAddress.Parse(ip), port);
+                server.Start();
+                Console.WriteLine("Waiting for connection at: {0} {1}", ip, port);
+                client = server.AcceptTcpClient();
+                Console.WriteLine("Connected");
+            }
+            else
+            {
+                client = new TcpClient();
+                Console.WriteLine("Connecting at: {0} {1}", ip, port);
+                client.Connect(ip, 1024);
+                if (client.Connected)
+                    Console.WriteLine("Connected");
+            }
+        }
 
-            serverSocket.Bind(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1024));
-            serverSocket.Listen(1);
-            clientSocket.Connect("127.0.0.1", 1024);
-            internalSocket = serverSocket.Accept();
-            clientSocket.Send(ASCIIEncoding.ASCII.GetBytes("Hello world!"));
-            internalSocket.Receive(recBuffer);
-            Console.WriteLine(ASCIIEncoding.ASCII.GetString(recBuffer));
+        public void send()
+        {
+            send("Hello World!\n");
+        }
 
-            Console.Read();
+        public void send(string str)
+        {
+            BinaryWriter writer = new BinaryWriter(client.GetStream());
+            Console.WriteLine("Sending: {0}", str);
+            writer.Write(str);
+        }
+
+        public void receive()
+        {
+            Console.WriteLine("Waiting for a message");
+            BinaryReader reader = new BinaryReader(client.GetStream());
+            Console.WriteLine("Received: {0}",reader.ReadString());
+        }
+
+        ~Connection()
+        {
+            client.Close();
         }
     }
 }
