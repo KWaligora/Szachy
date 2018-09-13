@@ -10,10 +10,8 @@ namespace Szachy.Pieces
 {
     class Tower: Piece
     {
-        public Tower(byte id, Bitmap image) : base(id, image)
-        {
+        public Tower(byte id, Bitmap image) : base(id, image) { } //moze pozostac pusty
 
-        }
         public override bool move()
         {
             return true;
