@@ -16,11 +16,6 @@ namespace Szachy.Pieces
             return true;
         }
 
-        public override void draw()
-        {
-
-        }
-
         public override bool special()
         {
             return true;

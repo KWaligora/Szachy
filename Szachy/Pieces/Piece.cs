@@ -9,11 +9,11 @@ namespace Szachy
 {
    abstract class Piece
     {
-        Bitmap obrazek;
+        Bitmap image;
 
         public Piece(byte id, Bitmap image)
         {
-            this.obrazek = image;
+            this.image = image;
             this.id = id;
         }
 
@@ -21,11 +21,9 @@ namespace Szachy
 
         public abstract bool move();
 
-        public abstract void draw();
-
         public Bitmap getImage()
         {
-            return obrazek;
+            return image;
         }
 
         public abstract bool special();
