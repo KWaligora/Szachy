@@ -6,3 +6,4 @@ C:\Users\tpiek\Documents\GitHub\Szachy\Szachy\obj\Debug\Szachy.exe
 C:\Users\tpiek\Documents\GitHub\Szachy\Szachy\obj\Debug\Szachy.pdb
 C:\Users\tpiek\Documents\GitHub\Szachy\Szachy\obj\Debug\Szachy.csproj.GenerateResource.cache
 C:\Users\tpiek\Documents\GitHub\Szachy\Szachy\obj\Debug\Szachy.Properties.Resources.resources
+C:\Users\tpiek\Documents\GitHub\Szachy\Szachy\obj\Debug\Szachy.Window.resources

@@ -25,6 +25,7 @@ namespace Szachy
             // 
             // board
             // 
+            this.board.BackgroundImage = global::Szachy.Properties.Resources.board;
             this.board.Location = new System.Drawing.Point(0, 0);
             this.board.Name = "board";
             this.board.Size = new System.Drawing.Size(600, 600);
