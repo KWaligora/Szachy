@@ -15,6 +15,8 @@ namespace Szachy
         byte[] board = new byte[64];
         Piece[] pieces = new Piece[32];
         Bitmap pieceBitmap;
+        byte click=0;   //poprzednie kliknięcie, początkowe współżędne
+        byte numer;
         public Board()
         {
             pieceBitmap = global::Szachy.Properties.Resources.pieces;
@@ -103,7 +105,19 @@ namespace Szachy
 
         public void onClick(byte i)
         {
-            MessageBox.Show("OnClick");
+
+            if (click != 0)
+            {
+                pieces[click].move(numer, i);
+                click = 0;
+            }
+
+            if (board[i] < 32)
+            {
+                click = board[i];
+                numer = i;
+            }
+            
         }
 
     }
