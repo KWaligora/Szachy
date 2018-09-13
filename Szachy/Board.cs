@@ -103,7 +103,7 @@ namespace Szachy
 
         public void onClick(byte i)
         {
-
+            MessageBox.Show("OnClick");
         }
 
     }

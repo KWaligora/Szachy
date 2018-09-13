@@ -82,6 +82,7 @@ namespace Szachy
         {
             this.selectX = (e.X - 20) / 70;
             this.selectY = (e.Y - 20) / 70;
+            boardModel.onClick(Convert.ToByte(selectY * 8 + selectX));
             this.board.Invalidate();
         }
     }
