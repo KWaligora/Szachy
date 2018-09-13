@@ -18,9 +18,9 @@ namespace Szachy.Pieces
             int xq = x % 8;
             int yp = y / 8;
             int yq = y % 8;
-            if (Math.Abs(xp - yp) == 0 || Math.Abs(xq - yq) == 0) return true;
+            if (board[x] < 17 && board[y] < 17) return false;
             if (board[x] > 16 && board[x] < 32 && board[y] > 16 && board[y] < 32) return false;
-            if (Math.Abs(xp - yp) == Math.Abs(xq - yq)) return true;
+            if (Math.Abs(xp - yp) == 0 || Math.Abs(xq - yq) == 0) return true;
             return false;
         }
 
