@@ -10,17 +10,17 @@ namespace Szachy
    abstract class Piece
     {
         Bitmap image;
-        Piece[] Pieces;
-        public Piece(byte id, Bitmap image, Piece [] pieces)
+        protected byte[] board;
+        public Piece(byte id, Bitmap image, byte [] board)
         {
             this.image = image;
             this.id = id;
-            this.Pieces = pieces;
+            this.board = board;
         }
 
         protected byte id;
 
-        public abstract bool move();
+        public abstract bool move(byte x, byte y);
 
         public Bitmap getImage()
         {

@@ -10,9 +10,9 @@ namespace Szachy.Pieces
 {
     class Horse: Piece
     {
-        public Horse(byte id, Bitmap image, Piece [] pieces) : base(id, image, pieces) { } //moze pozostac pusty
+        public Horse(byte id, Bitmap image, byte [] board) : base(id, image, board) { } //moze pozostac pusty
 
-        public override bool move()
+        public override bool move(byte x, byte y)
         {
             return true;
         }

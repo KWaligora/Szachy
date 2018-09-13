@@ -9,10 +9,12 @@ namespace Szachy.Pieces
 {
     class Pawn: Piece
     {
-        public Pawn(byte id, Bitmap image, Piece [] pieces) : base(id, image, pieces) { } //moze pozostac pusty
+        public Pawn(byte id, Bitmap image, byte [] board) : base(id, image, board) { } //moze pozostac pusty
 
-        public override bool move()
+        public override bool move(byte x, byte y)
         {
+            board[y] = board[x];
+            board[x] = 0;
             return true;
         }
 
