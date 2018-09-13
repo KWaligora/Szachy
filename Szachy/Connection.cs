@@ -45,14 +45,14 @@ namespace Szachy
         {
             BinaryWriter writer = new BinaryWriter(client.GetStream());
             Console.WriteLine("Sending: {0}", str);
-            writer.Write(str);
+            writer.Write(str); // metoda wysylajaca stringa/dane/cokolwiek bo przeciążona
         }
 
         public void receive()
         {
             Console.WriteLine("Waiting for a message");
             BinaryReader reader = new BinaryReader(client.GetStream());
-            Console.WriteLine("Received: {0}",reader.ReadString());
+            Console.WriteLine("Received: {0}",reader.ReadString()); //metoda odbierajaca stringa (tylko stringa przyjmuje)
         }
 
         ~Connection()
