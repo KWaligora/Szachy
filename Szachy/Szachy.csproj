@@ -33,8 +33,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Board.cs" />
     <Compile Include="Entry.cs" />
     <Compile Include="Connection.cs" />
+    <Compile Include="Pieces\Pawn.cs" />
+    <Compile Include="Pieces\Piece.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -64,5 +67,6 @@
   <ItemGroup>
     <None Include="img\board.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
