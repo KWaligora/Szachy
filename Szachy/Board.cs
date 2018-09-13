@@ -10,6 +10,7 @@ namespace Szachy
     class Board
     {
         byte[] board = new byte[64];
+
         public Board()
         {
             for (int i = 0; i < 16; i++)
@@ -20,14 +21,16 @@ namespace Szachy
             for (int i = 48; i < 64; i++)
             {
                 board[i] = Convert.ToByte(i - 31);
-            }
+            } 
+        }
 
-            string test = "";
-            for (int i = 0; i<64; i++)
+        public int get_piece(int x)
+        {
+            for (int i = 0; i < 64; i++)
             {
-                test += board[i];
+                if (board[i] == x) return i;
             }
-            MessageBox.Show(test);
+            return -1;
         }
     }
 }
