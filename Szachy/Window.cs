@@ -15,7 +15,7 @@ namespace Szachy
         Bitmap selectBitmap;
         int selectX, selectY;
         private TextBox chatLog;
-        private TextBox textBox1;
+        private TextBox chatField;
         Board boardModel;
 
         public Window(Board boardModel)
@@ -28,7 +28,7 @@ namespace Szachy
         {
             this.board = new System.Windows.Forms.Panel();
             this.chatLog = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.chatField = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // board
@@ -46,22 +46,23 @@ namespace Szachy
             this.chatLog.Location = new System.Drawing.Point(610, 300);
             this.chatLog.Multiline = true;
             this.chatLog.Name = "chatLog";
+            this.chatLog.ReadOnly = true;
             this.chatLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.chatLog.Size = new System.Drawing.Size(180, 250);
             this.chatLog.TabIndex = 1;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(610, 560);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(180, 20);
-            this.textBox1.TabIndex = 2;
+            this.chatField.Location = new System.Drawing.Point(610, 560);
+            this.chatField.Name = "textBox1";
+            this.chatField.Size = new System.Drawing.Size(180, 20);
+            this.chatField.TabIndex = 2;
             // 
             // Window
             // 
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 600);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.chatField);
             this.Controls.Add(this.chatLog);
             this.Controls.Add(this.board);
             this.Name = "Window";

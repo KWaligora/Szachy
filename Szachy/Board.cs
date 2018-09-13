@@ -105,8 +105,6 @@ namespace Szachy
 
         public void onClick(byte i)
         {
-            MessageBox.Show(i.ToString());
-
             if (!pieceSelected) // jeżeli jeszcze nic nie zaznaczylem
             {
                 if (board[i] < 32) // jezeli pole nie jest puste
