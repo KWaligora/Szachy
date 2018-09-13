@@ -123,7 +123,8 @@ namespace Szachy
                         board[selectedPiecePosition] = 32; //posprzataj
                         pieceSelected = false; //usun zaznaczenie
                                                //powiadomienie do serwera
-                    }                 
+                    }
+                    else pieceSelected = false;
                 }
             }
             
