@@ -117,10 +117,13 @@ namespace Szachy
             }
             else //jezeli zaznaczylem
             {
-                board[i] = board[selectedPiecePosition]; //przesun
-                board[selectedPiecePosition] = 32; //posprzataj
-                pieceSelected = false; //usun zaznaczenie
-                //powiadomienie do serwera
+                if (i != selectedPiecePosition) // przesuniecie w to samo miejsce nie ma sensu
+                {
+                    board[i] = board[selectedPiecePosition]; //przesun
+                    board[selectedPiecePosition] = 32; //posprzataj
+                    pieceSelected = false; //usun zaznaczenie
+                    //powiadomienie do serwera
+                }
             }
             
         }
