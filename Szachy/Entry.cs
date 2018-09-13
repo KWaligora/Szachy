@@ -3,13 +3,17 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
+using System.Windows.Forms;
+
 namespace Szachy
 {
     class Entry
     {
-        
+       
         public static int Main(String[] args)
         {
+            Application.Run(new Window());
+
             Connection connection;
             switch (args[0].ToUpper()) {
                 case "SERVER":
