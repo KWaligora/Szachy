@@ -131,69 +131,71 @@ namespace Szachy
         public void onClick(byte i)
         {
             //NIC JESZCE NIE ZAZNACZYLEM
-            if (!pieceSelected && playerYou.getToken())
+            if (playerYou.getToken())
             {
-                bool goodColorSelected = false;
-                if (whiteMove)
+                if (!pieceSelected)
                 {
-                    if (board[i] > 15 && board[i] != 32) //selected white; not empty
-                    {
-                        goodColorSelected = true;
-                    }
-                }
-                else //blackMove
-                {
-                    if (board[i] <= 15) //selected black; not empty
-                    {
-                        goodColorSelected = true;
-                    }
-                }
-
-                if (goodColorSelected)
-                {
-                    selectedPiecePosition = i; //zapamietaj pozycje
-                    pieceSelected = true; //pamietaj, ze masz cos zaznaczone
-                }
-            }
-            else //JEZELI JUZ COS ZAZNACZYLEM
-            {
-                if (i != selectedPiecePosition) // jesli cokolwiek przesunal
-                {
-                    bool anotherColorSelected = false;
+                    bool goodColorSelected = false;
                     if (whiteMove)
                     {
-                        if (board[i] <= 15 || board[i] == 32) // jezeli czarne lub puste
+                        if (board[i] > 15 && board[i] != 32) //selected white; not empty
                         {
-                            anotherColorSelected = true;
+                            goodColorSelected = true;
                         }
                     }
-                    else //black move
+                    else //blackMove
                     {
-                        if (board[i] > 15) // jezeli biale lub puste
+                        if (board[i] <= 15) //selected black; not empty
                         {
-                            anotherColorSelected = true;
+                            goodColorSelected = true;
                         }
                     }
 
-                    if (anotherColorSelected)
+                    if (goodColorSelected)
                     {
-                        if (pieces[board[selectedPiecePosition]].move(selectedPiecePosition, i)) // can move
-                        {
-                            board[i] = board[selectedPiecePosition]; //przesun
-                            board[selectedPiecePosition] = 32; //posprzataj
-                            enemyTurn(board[i], board[selectedPiecePosition]);  //przekazanie ruchu
-                            pieceSelected = false; //usun zaznaczenie
-                            whiteMove = !whiteMove; // zmien ruch
-                                                    //powiadomienie do serwera
-                        }
+                        selectedPiecePosition = i; //zapamietaj pozycje
+                        pieceSelected = true; //pamietaj, ze masz cos zaznaczone
                     }
-                    else
+                }
+                else //JEZELI JUZ COS ZAZNACZYLEM
+                {
+                    if (i != selectedPiecePosition) // jesli cokolwiek przesunal
                     {
-                        selectedPiecePosition = i;
+                        bool anotherColorSelected = false;
+                        if (whiteMove)
+                        {
+                            if (board[i] <= 15 || board[i] == 32) // jezeli czarne lub puste
+                            {
+                                anotherColorSelected = true;
+                            }
+                        }
+                        else //black move
+                        {
+                            if (board[i] > 15) // jezeli biale lub puste
+                            {
+                                anotherColorSelected = true;
+                            }
+                        }
+
+                        if (anotherColorSelected)
+                        {
+                            if (pieces[board[selectedPiecePosition]].move(selectedPiecePosition, i)) // can move
+                            {
+                                board[i] = board[selectedPiecePosition]; //przesun
+                                board[selectedPiecePosition] = 32; //posprzataj
+                                enemyTurn(selectedPiecePosition, i);  //przekazanie ruchu
+                                pieceSelected = false; //usun zaznaczenie
+                                whiteMove = !whiteMove; // zmien ruch
+                                                        //powiadomienie do serwera
+                            }
+                        }
+                        else
+                        {
+                            selectedPiecePosition = i;
+                        }
                     }
                 }
             }
-
         }
 
         public void enemyTurn(byte from, byte to) //Skończyłem ruch, wysyłam dane
