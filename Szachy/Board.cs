@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using Szachy.Pieces;
+using System.ComponentModel;
 
 namespace Szachy
 {
+    
     class Board
     {
+        BackgroundWorker workerThread;
         byte[] board = new byte[64];
         Piece[] pieces = new Piece[32];
         Bitmap pieceBitmap;
@@ -20,11 +23,11 @@ namespace Szachy
         bool whiteMove = true;
         public Connection connectionReference;
         Player playerYou;
-        Player playerEnemmy;
+        Player playerEnemy;
         public Board(Connection connectionReference, Player playerYou, Player playerEnemy)
         {
             this.playerYou = playerYou;
-            this.playerEnemmy = playerEnemmy;
+            this.playerEnemy = playerEnemy;
             this.connectionReference = connectionReference;
             pieceBitmap = global::Szachy.Properties.Resources.pieces;
             //czarne wieze
@@ -194,12 +197,36 @@ namespace Szachy
 
         public void enemyTurn(byte from, byte to) //Skończyłem ruch, wysyłam dane
         {
+            //SET TOKEN
             playerYou.setToken(false);
+            //DO CONNECTION STUFF
+            workerThread.DoWork += doThreadWork;
+            workerThread.RunWorkerCompleted += threadWorkCompleted;
+            workerThread.RunWorkerAsync(from * 64 + to);
         }
 
         public void enemyMoved(byte from, byte to) //Zaczynam nowy ruch, dostaje dane
         {
+            //MOVE
+            board[to] = board[from];
+            board[from] = 32; 
+            //SET TOKEN
             playerYou.setToken(true);
+            MessageBox.Show("Your TURN MAN");
+        }
+
+        private void doThreadWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            connectionReference.send(e.Argument.ToString());
+            string info = connectionReference.receive();
+            e.Result = Convert.ToInt32(info);
+        }
+
+        private void threadWorkCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            int from = (int)e.Result / 64;
+            int to = (int)e.Result % 64;
+            enemyMoved(Convert.ToByte(from),Convert.ToByte(to));
         }
     }
 }
