@@ -51,7 +51,7 @@ namespace Szachy.Pieces
                     ++tmpY;
                 }
 
-                if (board[convertToOneDimension(tmpX, tmpY)] != 32) return false;
+                if (board[convertToOneDimension(tmpX, tmpY)] != 32 && tmpX != moveToX) return false;
             } while (tmpX != moveToX);
 
             if (Math.Abs(moveFromX - moveToX) == Math.Abs(moveFromY - moveToY)) return true;
