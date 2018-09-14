@@ -28,6 +28,8 @@ namespace Szachy
         public Board(Connection connectionReference, Player playerYou, Player playerEnemy, bool whiteMove)
         {
             workerThread = new BackgroundWorker();
+            workerThread.DoWork += doThreadWork;
+            workerThread.RunWorkerCompleted += threadWorkCompleted;
             this.playerYou = playerYou;
             this.playerEnemy = playerEnemy;
             this.whiteMove = whiteMove;
@@ -215,8 +217,6 @@ namespace Szachy
                 playerYou.setToken(false);
           
                 //DO CONNECTION STUFF
-                workerThread.DoWork += doThreadWork;
-                workerThread.RunWorkerCompleted += threadWorkCompleted;
                 workerThread.RunWorkerAsync(from * 64 + to);
         }
 
