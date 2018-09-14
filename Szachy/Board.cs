@@ -20,15 +20,16 @@ namespace Szachy
         Bitmap pieceBitmap;
         bool pieceSelected = false;
         byte selectedPiecePosition;
-        bool whiteMove = true;
+        bool whiteMove;
         public Connection connectionReference;
         Player playerYou;
         Player playerEnemy;
-        public Board(Connection connectionReference, Player playerYou, Player playerEnemy)
+        public Board(Connection connectionReference, Player playerYou, Player playerEnemy, bool whiteMove)
         {
             workerThread = new BackgroundWorker();
             this.playerYou = playerYou;
             this.playerEnemy = playerEnemy;
+            this.whiteMove = whiteMove;
             this.connectionReference = connectionReference;
             pieceBitmap = global::Szachy.Properties.Resources.pieces;
             //czarne wieze

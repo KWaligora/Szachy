@@ -47,14 +47,14 @@ namespace Szachy
             {
                 gracz1 = new Player(true);
                 gracz2 = new Player(false);
-                Board board = new Board(connection, gracz1, gracz2);
+                Board board = new Board(connection, gracz1, gracz2, true);
                 Application.Run(new Window(board));
             }
             else
             {
                 gracz1 = new Player(false);
                 gracz2 = new Player(true);
-                Board board = new Board(connection, gracz2, gracz1);
+                Board board = new Board(connection, gracz2, gracz1, false);
                 Application.Run(new Window(board));
             }
             
