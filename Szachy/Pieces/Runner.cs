@@ -45,7 +45,7 @@ namespace Szachy.Pieces
                     --tmpX;
                     --tmpY;
                 }
-                else if (!Xascending && Yascending)
+                else 
                 {
                     --tmpX;
                     ++tmpY;
