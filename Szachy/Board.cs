@@ -196,8 +196,7 @@ namespace Szachy
                                 board[selectedPiecePosition] = 32; //posprzataj
                                 enemyTurn(selectedPiecePosition, i);  //przekazanie ruchu
                                 pieceSelected = false; //usun zaznaczenie
-                                whiteMove = !whiteMove; // zmien ruch
-                                                        //powiadomienie do serwera
+                                                      
                             }
                         }
                         else
@@ -211,6 +210,7 @@ namespace Szachy
 
         public void enemyTurn(byte from, byte to) //Skończyłem ruch, wysyłam dane
         {
+            Console.WriteLine("EnemyTurn");
                 //SET TOKEN
                 playerYou.setToken(false);
           
