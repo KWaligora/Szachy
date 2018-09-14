@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using System.Drawing;
 
 namespace Szachy.Pieces
 {
-    class Queen: Piece
+    class Queen : Piece
     {
-        public Queen(byte id, Bitmap image, byte [] board) : base(id, image, board) { } //moze pozostac pusty
+        public Queen(byte id, Bitmap image, byte[] board) : base(id, image, board)
+        {
+        } //moze pozostac pusty
 
         public override bool move(byte x, byte y)
         {
@@ -18,9 +19,8 @@ namespace Szachy.Pieces
             int xq = x % 8;
             int yp = y / 8;
             int yq = y % 8;
-            if (board[x] < 16 && board[y] < 16) return false;
-            if (board[x] > 16 && board[x] < 32 && board[y] > 16 && board[y] < 32) return false;
-            if ((Math.Abs(xp - yp) == 0 || Math.Abs(xq - yq) == 0) || (Math.Abs(xp - yp) == Math.Abs(xq - yq))) return true;
+            if ((Math.Abs(xp - yp) == 0 || Math.Abs(xq - yq) == 0) ||
+                (Math.Abs(xp - yp) == Math.Abs(xq - yq))) return true;
 
             return false;
         }
@@ -36,4 +36,3 @@ namespace Szachy.Pieces
         }
     }
 }
-
