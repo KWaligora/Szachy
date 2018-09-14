@@ -13,7 +13,6 @@ namespace Szachy
     {
         private Panel board;
         Bitmap selectBitmap;
-        int selectX, selectY;
         private TextBox chatLog;
         private TextBox chatField;
         Board boardModel;
@@ -75,14 +74,18 @@ namespace Szachy
         private void initFields()
         {
             this.selectBitmap = global::Szachy.Properties.Resources.select;
-            this.selectX = 0;
-            this.selectY = 0;
         }
 
         private void board_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(selectBitmap, new Point(19 + selectX * 70, 19 + selectY * 70));
-            for(int i = 0; i<64; i++)
+            byte selectedIndex = boardModel.getSelectedTile();
+            if (selectedIndex != 64)
+            {
+                int selectY = selectedIndex / 8;
+                int selectX = selectedIndex % 8;
+                e.Graphics.DrawImage(selectBitmap, new Point(19 + selectX * 70, 19 + selectY * 70));
+            }
+            for (int i = 0; i < 64; i++)
             {
                 byte pieceID = boardModel.getPieceID(i);
                 if (pieceID < 32)
@@ -97,8 +100,9 @@ namespace Szachy
 
         private void board_MouseClick(object sender, MouseEventArgs e)
         {
-            this.selectX = (e.X - 20) / 70;
-            this.selectY = (e.Y - 20) / 70;
+            int selectX, selectY;
+            selectX = (e.X - 20) / 70;
+            selectY = (e.Y - 20) / 70;
             boardModel.onClick(Convert.ToByte(selectY * 8 + selectX));
             this.board.Invalidate();
         }

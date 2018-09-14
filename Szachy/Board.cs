@@ -17,33 +17,36 @@ namespace Szachy
         Bitmap pieceBitmap;
         bool pieceSelected = false;
         byte selectedPiecePosition;
+        bool whiteMove = true;
         public Board()
         {
             pieceBitmap = global::Szachy.Properties.Resources.pieces;
             //czarne wieze
-            pieces[0] = new Tower(0, pieceBitmap.Clone(new Rectangle(0,0,70,70), pieceBitmap.PixelFormat), board);
-            pieces[7] = new Tower(7, pieceBitmap.Clone(new Rectangle(0,0,70,70), pieceBitmap.PixelFormat), board);
+            pieces[0] = new Tower(0, pieceBitmap.Clone(new Rectangle(0, 0, 70, 70), pieceBitmap.PixelFormat), board);
+            pieces[7] = new Tower(7, pieceBitmap.Clone(new Rectangle(0, 0, 70, 70), pieceBitmap.PixelFormat), board);
             //czarne konie
-            pieces[1] = new Horse(1, pieceBitmap.Clone(new Rectangle(70,0,70,70), pieceBitmap.PixelFormat), board);
-            pieces[6] = new Horse(6, pieceBitmap.Clone(new Rectangle(70,0,70,70), pieceBitmap.PixelFormat), board);
+            pieces[1] = new Horse(1, pieceBitmap.Clone(new Rectangle(70, 0, 70, 70), pieceBitmap.PixelFormat), board);
+            pieces[6] = new Horse(6, pieceBitmap.Clone(new Rectangle(70, 0, 70, 70), pieceBitmap.PixelFormat), board);
             //czarne gonce
-            pieces[2] = new Runner(2, pieceBitmap.Clone(new Rectangle(140,0,70,70), pieceBitmap.PixelFormat), board);
-            pieces[5] = new Runner(5, pieceBitmap.Clone(new Rectangle(140,0,70,70), pieceBitmap.PixelFormat), board);
+            pieces[2] = new Runner(2, pieceBitmap.Clone(new Rectangle(140, 0, 70, 70), pieceBitmap.PixelFormat), board);
+            pieces[5] = new Runner(5, pieceBitmap.Clone(new Rectangle(140, 0, 70, 70), pieceBitmap.PixelFormat), board);
             //czarna krolowa
-            pieces[3] = new Queen(3, pieceBitmap.Clone(new Rectangle(210,0,70,70), pieceBitmap.PixelFormat), board);
+            pieces[3] = new Queen(3, pieceBitmap.Clone(new Rectangle(210, 0, 70, 70), pieceBitmap.PixelFormat), board);
             //czarny krol
-            pieces[4] = new King(4, pieceBitmap.Clone(new Rectangle(280,0,70,70), pieceBitmap.PixelFormat), board);
+            pieces[4] = new King(4, pieceBitmap.Clone(new Rectangle(280, 0, 70, 70), pieceBitmap.PixelFormat), board);
 
-            for (byte i = 8; i < 16; i++) { //pionki czarne
-                pieces[i] = new Pawn(i, pieceBitmap.Clone(new Rectangle(350,0,70,70), pieceBitmap.PixelFormat), board);
+            for (byte i = 8; i < 16; i++)
+            { //pionki czarne
+                pieces[i] = new Pawn(i, pieceBitmap.Clone(new Rectangle(350, 0, 70, 70), pieceBitmap.PixelFormat), board);
             }
 
-            for (byte i = 16; i < 24; i++) { //pionki biale
-                pieces[i] = new Pawn(i, pieceBitmap.Clone(new Rectangle(350,70,70,70), pieceBitmap.PixelFormat), board);
+            for (byte i = 16; i < 24; i++)
+            { //pionki biale
+                pieces[i] = new Pawn(i, pieceBitmap.Clone(new Rectangle(350, 70, 70, 70), pieceBitmap.PixelFormat), board);
             }
 
             //biale wieze
-            pieces[24] = new Tower(24, pieceBitmap.Clone(new Rectangle(0,70,70,70), pieceBitmap.PixelFormat), board);
+            pieces[24] = new Tower(24, pieceBitmap.Clone(new Rectangle(0, 70, 70, 70), pieceBitmap.PixelFormat), board);
             pieces[31] = new Tower(31, pieceBitmap.Clone(new Rectangle(0, 70, 70, 70), pieceBitmap.PixelFormat), board);
             //czarne konie
             pieces[25] = new Horse(25, pieceBitmap.Clone(new Rectangle(70, 70, 70, 70), pieceBitmap.PixelFormat), board);
@@ -78,6 +81,18 @@ namespace Szachy
             }
         }
 
+        public byte getSelectedTile()
+        {
+            if (pieceSelected)
+            {
+                return selectedPiecePosition;
+            }
+            else
+            {
+                return 64;
+            }
+        }
+
         public int get_piece(int x)
         {
             for (int i = 0; i < 64; i++)
@@ -87,7 +102,7 @@ namespace Szachy
             return -1;
         }
 
-        public byte [] get_board()
+        public byte[] get_board()
         {
             return board;
         }
@@ -105,29 +120,69 @@ namespace Szachy
 
         public void onClick(byte i)
         {
-            if (!pieceSelected) // jeżeli jeszcze nic nie zaznaczylem
+            //NIC JESZCE NIE ZAZNACZYLEM
+            if (!pieceSelected)
             {
-                if (board[i] < 32) // jezeli pole nie jest puste
+                bool goodColorSelected = false;
+                if (whiteMove)
+                {
+                    if (board[i] > 15 && board[i] != 32) //selected white; not empty
+                    {
+                        goodColorSelected = true;
+                    }
+                }
+                else //blackMove
+                {
+                    if (board[i] <= 15) //selected black; not empty
+                    {
+                        goodColorSelected = true;
+                    }
+                }
+
+                if (goodColorSelected)
                 {
                     selectedPiecePosition = i; //zapamietaj pozycje
                     pieceSelected = true; //pamietaj, ze masz cos zaznaczone
                 }
             }
-            else //jezeli zaznaczylem
+            else //JEZELI JUZ COS ZAZNACZYLEM
             {
-                if (i != selectedPiecePosition) // przesuniecie w to samo miejsce nie ma sensu
+                if (i != selectedPiecePosition) // jesli cokolwiek przesunal
                 {
-                    if (pieces[board[selectedPiecePosition]].move(selectedPiecePosition, i))
+                    bool anotherColorSelected = false;
+                    if (whiteMove)
                     {
-                        board[i] = board[selectedPiecePosition]; //przesun
-                        board[selectedPiecePosition] = 32; //posprzataj
-                        pieceSelected = false; //usun zaznaczenie
-                                               //powiadomienie do serwera
+                        if (board[i] <= 15 || board[i] == 32) // jezeli czarne lub puste
+                        {
+                            anotherColorSelected = true;
+                        }
                     }
-                    else pieceSelected = false;
+                    else //black move
+                    {
+                        if (board[i] > 15) // jezeli biale lub puste
+                        {
+                            anotherColorSelected = true;
+                        }
+                    }
+
+                    if (anotherColorSelected)
+                    {
+                        if (pieces[board[selectedPiecePosition]].move(selectedPiecePosition, i)) // can move
+                        {
+                            board[i] = board[selectedPiecePosition]; //przesun
+                            board[selectedPiecePosition] = 32; //posprzataj
+                            pieceSelected = false; //usun zaznaczenie
+                            whiteMove = !whiteMove; // zmien ruch
+                                                    //powiadomienie do serwera
+                        }
+                    }
+                    else
+                    {
+                        selectedPiecePosition = i;
+                    }
                 }
             }
-            
+
         }
 
     }
