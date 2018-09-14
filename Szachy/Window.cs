@@ -21,6 +21,7 @@ namespace Szachy
         {
             this.boardModel = boardModel;
             InitializeComponent();
+            initFields();
         }
 
         private void InitializeComponent()
