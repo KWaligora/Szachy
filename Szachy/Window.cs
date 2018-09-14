@@ -11,7 +11,7 @@ namespace Szachy
 {
     class Window : Form
     {
-        private Panel board;
+        public Panel board;
         Bitmap selectBitmap;
         private TextBox chatLog;
         private TextBox chatField;
@@ -21,6 +21,7 @@ namespace Szachy
         {
             this.boardModel = boardModel;
             InitializeComponent();
+            initFields();
         }
 
         private void InitializeComponent()

@@ -30,20 +30,37 @@ namespace Szachy
                     break;
             }
 
-             /*
-             if (connection.isHost)
-             {
-                 connection.send("Hello there!");
-                 connection.receive();
-             }
-             else
-             {
-                 connection.receive();
-                 connection.send("Hello too!");
-             }*/
-             
-            Board board = new Board(connection);
-            Application.Run(new Window(board));
+            /*
+            if (connection.isHost)
+            {
+                connection.send("Hello there!");
+                connection.receive();
+            }
+            else
+            {
+                connection.receive();
+                connection.send("Hello too!");
+            }*/
+            Player gracz1;
+            Player gracz2;
+            if (connection != null && connection.isHost) //host zazczyna
+            {
+                gracz1 = new Player(true);
+                gracz2 = new Player(false);
+                Board board = new Board(connection, gracz1, gracz2, true);
+                Window window = new Window(board);
+                board.addWindowReference(window);
+                Application.Run(window);
+            }
+            else
+            {
+                gracz1 = new Player(false);
+                gracz2 = new Player(true);
+                Board board = new Board(connection, gracz2, gracz1, false);
+                Window window = new Window(board);
+                board.addWindowReference(window);
+                Application.Run(window);
+            }
             
             //Console.ReadKey();
             return 0;

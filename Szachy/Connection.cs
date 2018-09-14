@@ -48,11 +48,13 @@ namespace Szachy
             writer.Write(str); // metoda wysylajaca stringa/dane/cokolwiek bo przeciążona
         }
 
-        public void receive()
+        public string receive()
         {
             Console.WriteLine("Waiting for a message");
             BinaryReader reader = new BinaryReader(client.GetStream());
-            Console.WriteLine("Received: {0}",reader.ReadString()); //metoda odbierajaca stringa (tylko stringa przyjmuje)
+            string received = reader.ReadString();
+            Console.WriteLine("Received: {0}",received); //metoda odbierajaca stringa (tylko stringa przyjmuje)
+            return received;
         }
 
         ~Connection()

@@ -7,20 +7,32 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using Szachy.Pieces;
+using System.ComponentModel;
 
 namespace Szachy
 {
+    
     class Board
     {
+        BackgroundWorker workerThread;
         byte[] board = new byte[64];
         Piece[] pieces = new Piece[32];
         Bitmap pieceBitmap;
         bool pieceSelected = false;
         byte selectedPiecePosition;
-        bool whiteMove = true;
+        bool whiteMove;
         public Connection connectionReference;
-        public Board(Connection connectionReference)
+        Player playerYou;
+        Player playerEnemy;
+        Window windowReference;
+        public Board(Connection connectionReference, Player playerYou, Player playerEnemy, bool whiteMove)
         {
+            workerThread = new BackgroundWorker();
+            workerThread.DoWork += doThreadWork;
+            workerThread.RunWorkerCompleted += threadWorkCompleted;
+            this.playerYou = playerYou;
+            this.playerEnemy = playerEnemy;
+            this.whiteMove = whiteMove;
             this.connectionReference = connectionReference;
             pieceBitmap = global::Szachy.Properties.Resources.pieces;
             //czarne wieze
@@ -63,6 +75,15 @@ namespace Szachy
 
             setupBoard();
             //pieces[18].move(12, 20); ACHTUNG TESTEN
+            if (!whiteMove)
+            {
+                enemyTurn(128, 128);
+            }
+        }
+
+        public void addWindowReference(Window window)
+        {
+            this.windowReference = window;
         }
 
         void setupBoard()
@@ -123,69 +144,110 @@ namespace Szachy
         public void onClick(byte i)
         {
             //NIC JESZCE NIE ZAZNACZYLEM
-            if (!pieceSelected)
+            if (playerYou.getToken())
             {
-                bool goodColorSelected = false;
-                if (whiteMove)
+                if (!pieceSelected)
                 {
-                    if (board[i] > 15 && board[i] != 32) //selected white; not empty
-                    {
-                        goodColorSelected = true;
-                    }
-                }
-                else //blackMove
-                {
-                    if (board[i] <= 15) //selected black; not empty
-                    {
-                        goodColorSelected = true;
-                    }
-                }
-
-                if (goodColorSelected)
-                {
-                    selectedPiecePosition = i; //zapamietaj pozycje
-                    pieceSelected = true; //pamietaj, ze masz cos zaznaczone
-                }
-            }
-            else //JEZELI JUZ COS ZAZNACZYLEM
-            {
-                if (i != selectedPiecePosition) // jesli cokolwiek przesunal
-                {
-                    bool anotherColorSelected = false;
+                    bool goodColorSelected = false;
                     if (whiteMove)
                     {
-                        if (board[i] <= 15 || board[i] == 32) // jezeli czarne lub puste
+                        if (board[i] > 15 && board[i] != 32) //selected white; not empty
                         {
-                            anotherColorSelected = true;
+                            goodColorSelected = true;
                         }
                     }
-                    else //black move
+                    else //blackMove
                     {
-                        if (board[i] > 15) // jezeli biale lub puste
+                        if (board[i] <= 15) //selected black; not empty
                         {
-                            anotherColorSelected = true;
+                            goodColorSelected = true;
                         }
                     }
 
-                    if (anotherColorSelected)
+                    if (goodColorSelected)
                     {
-                        if (pieces[board[selectedPiecePosition]].move(selectedPiecePosition, i)) // can move
-                        {
-                            board[i] = board[selectedPiecePosition]; //przesun
-                            board[selectedPiecePosition] = 32; //posprzataj
-                            pieceSelected = false; //usun zaznaczenie
-                            whiteMove = !whiteMove; // zmien ruch
-                                                    //powiadomienie do serwera
-                        }
+                        selectedPiecePosition = i; //zapamietaj pozycje
+                        pieceSelected = true; //pamietaj, ze masz cos zaznaczone
                     }
-                    else
+                }
+                else //JEZELI JUZ COS ZAZNACZYLEM
+                {
+                    if (i != selectedPiecePosition) // jesli cokolwiek przesunal
                     {
-                        selectedPiecePosition = i;
+                        bool anotherColorSelected = false;
+                        if (whiteMove)
+                        {
+                            if (board[i] <= 15 || board[i] == 32) // jezeli czarne lub puste
+                            {
+                                anotherColorSelected = true;
+                            }
+                        }
+                        else //black move
+                        {
+                            if (board[i] > 15) // jezeli biale lub puste
+                            {
+                                anotherColorSelected = true;
+                            }
+                        }
+
+                        if (anotherColorSelected)
+                        {
+                            if (pieces[board[selectedPiecePosition]].move(selectedPiecePosition, i)) // can move
+                            {
+                                board[i] = board[selectedPiecePosition]; //przesun
+                                board[selectedPiecePosition] = 32; //posprzataj
+                                enemyTurn(selectedPiecePosition, i);  //przekazanie ruchu
+                                pieceSelected = false; //usun zaznaczenie
+                                                      
+                            }
+                        }
+                        else
+                        {
+                            selectedPiecePosition = i;
+                        }
                     }
                 }
             }
-
         }
 
+        public void enemyTurn(byte from, byte to) //Skończyłem ruch, wysyłam dane
+        {
+            Console.WriteLine("EnemyTurn");
+                //SET TOKEN
+                playerYou.setToken(false);
+          
+                //DO CONNECTION STUFF
+                workerThread.RunWorkerAsync(from * 64 + to);
+        }
+
+        public void enemyMoved(byte from, byte to) //Zaczynam nowy ruch, dostaje dane
+        {
+
+            //MOVE
+            board[to] = board[from];
+            board[from] = 32; 
+            //SET TOKEN
+            playerYou.setToken(true);
+            windowReference.board.Invalidate();
+        }
+
+        private void doThreadWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            if ((int)e.Argument != 128 * 64 + 128) //not black's first move
+            {
+                connectionReference.send(e.Argument.ToString());
+            }
+            string info = connectionReference.receive();
+            e.Result = Convert.ToInt32(info);
+        }
+
+        private void threadWorkCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            int temp = (int)e.Result;
+            int to = temp % 64;
+            temp -= to;
+            int from = temp / 64;
+            enemyMoved(Convert.ToByte(from),Convert.ToByte(to));
+        }
     }
 }
