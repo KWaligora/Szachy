@@ -21,7 +21,7 @@ namespace Szachy.Pieces
 
             if (board[x] < 16 && board[y] < 16) return false;
             if (board[x] > 16 && board[x] < 32 && board[y] > 16 && board[y] < 32) return false;
-            if (Math.Abs(xp - yp) == 1 || Math.Abs(xq - yq) == 1) return true;
+            if ((Math.Abs(xp - yp) == 1 && Math.Abs(xq - yq) == 0) || (Math.Abs(xp - yp) == 0 && Math.Abs(xq - yq) == 1)) return true;
             
             return false;
         }
