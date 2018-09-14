@@ -20,6 +20,15 @@ namespace Szachy.Pieces
             int moveFromY = moveFrom % 8;
             int moveToX = moveTo / 8;
             int moveToY = moveTo % 8;
+
+            if (overlaping(moveFromX, moveFromY, moveToX, moveToY)) return false;
+            if (Math.Abs(moveFromX - moveToX) == Math.Abs(moveFromY - moveToY)) return true;
+
+            return false;
+        }
+
+        private bool overlaping(int moveFromX, int moveFromY, int moveToX, int moveToY)
+        {
             bool Xascending = false;
             bool Yascending = false;
             int tmpX = moveFromX;
@@ -51,10 +60,8 @@ namespace Szachy.Pieces
                     ++tmpY;
                 }
 
-                if (board[convertToOneDimension(tmpX, tmpY)] != 32 && tmpX != moveToX) return false;
+                if (board[convertToOneDimension(tmpX, tmpY)] != 32 && tmpX != moveToX) return true;
             } while (tmpX != moveToX);
-
-            if (Math.Abs(moveFromX - moveToX) == Math.Abs(moveFromY - moveToY)) return true;
 
             return false;
         }
