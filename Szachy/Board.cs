@@ -26,6 +26,7 @@ namespace Szachy
         Player playerEnemy;
         public Board(Connection connectionReference, Player playerYou, Player playerEnemy)
         {
+            workerThread = new BackgroundWorker();
             this.playerYou = playerYou;
             this.playerEnemy = playerEnemy;
             this.connectionReference = connectionReference;
