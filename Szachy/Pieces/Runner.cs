@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Windows.Forms.VisualStyles;
 
 namespace Szachy.Pieces
 {
@@ -19,9 +20,48 @@ namespace Szachy.Pieces
             int moveFromY = moveFrom % 8;
             int moveToX = moveTo / 8;
             int moveToY = moveTo % 8;
+            bool Xascending = false;
+            bool Yascending = false;
+            int tmpX = moveFromX;
+            int tmpY = moveFromY;
+
+            if (moveFromX - moveToX < 0) Xascending = true;
+            if (moveFromY - moveToY < 0) Yascending = true;
+
+            do
+            {
+                if (Xascending && Yascending)
+                {
+                    ++tmpX;
+                    ++tmpY;
+                }
+                else if (Xascending && !Yascending)
+                {
+                    ++tmpX;
+                    --tmpY;
+                }
+                else if (!Xascending && !Yascending)
+                {
+                    --tmpX;
+                    --tmpY;
+                }
+                else 
+                {
+                    --tmpX;
+                    ++tmpY;
+                }
+
+                if (board[convertToOneDimension(tmpX, tmpY)] != 32) return false;
+            } while (tmpX != moveToX);
+
             if (Math.Abs(moveFromX - moveToX) == Math.Abs(moveFromY - moveToY)) return true;
 
             return false;
+        }
+
+        private int convertToOneDimension(int x, int y)
+        {
+            return (x * 8) + y;
         }
 
         public override bool special()
