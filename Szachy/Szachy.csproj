@@ -43,6 +43,7 @@
     <Compile Include="Pieces\Queen.cs" />
     <Compile Include="Pieces\Runner.cs" />
     <Compile Include="Pieces\Tower.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

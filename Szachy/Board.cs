@@ -19,8 +19,12 @@ namespace Szachy
         byte selectedPiecePosition;
         bool whiteMove = true;
         public Connection connectionReference;
-        public Board(Connection connectionReference)
+        Player playerYou;
+        Player playerEnemmy;
+        public Board(Connection connectionReference, Player playerYou, Player playerEnemy)
         {
+            this.playerYou = playerYou;
+            this.playerEnemmy = playerEnemmy;
             this.connectionReference = connectionReference;
             pieceBitmap = global::Szachy.Properties.Resources.pieces;
             //czarne wieze
@@ -123,7 +127,7 @@ namespace Szachy
         public void onClick(byte i)
         {
             //NIC JESZCE NIE ZAZNACZYLEM
-            if (!pieceSelected)
+            if (!pieceSelected && playerYou.getToken())
             {
                 bool goodColorSelected = false;
                 if (whiteMove)
@@ -173,6 +177,7 @@ namespace Szachy
                         {
                             board[i] = board[selectedPiecePosition]; //przesun
                             board[selectedPiecePosition] = 32; //posprzataj
+                            enemyTurn(board[i], board[selectedPiecePosition]);  //przekazanie ruchu
                             pieceSelected = false; //usun zaznaczenie
                             whiteMove = !whiteMove; // zmien ruch
                                                     //powiadomienie do serwera
@@ -187,5 +192,14 @@ namespace Szachy
 
         }
 
+        public void enemyTurn(byte from, byte to) //Skończyłem ruch, wysyłam dane
+        {
+            playerYou.setToken(false);
+        }
+
+        public void enemyMoved(byte from, byte to) //Zaczynam nowy ruch, dostaje dane
+        {
+            playerYou.setToken(true);
+        }
     }
 }
