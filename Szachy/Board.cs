@@ -24,6 +24,7 @@ namespace Szachy
         public Connection connectionReference;
         Player playerYou;
         Player playerEnemy;
+        Window windowReference;
         public Board(Connection connectionReference, Player playerYou, Player playerEnemy, bool whiteMove)
         {
             workerThread = new BackgroundWorker();
@@ -72,6 +73,15 @@ namespace Szachy
 
             setupBoard();
             //pieces[18].move(12, 20); ACHTUNG TESTEN
+            if (!whiteMove)
+            {
+                enemyTurn(128, 128);
+            }
+        }
+
+        public void addWindowReference(Window window)
+        {
+            this.windowReference = window;
         }
 
         void setupBoard()
@@ -201,27 +211,32 @@ namespace Szachy
 
         public void enemyTurn(byte from, byte to) //Skończyłem ruch, wysyłam dane
         {
-            //SET TOKEN
-            playerYou.setToken(false);
-            //DO CONNECTION STUFF
-            workerThread.DoWork += doThreadWork;
-            workerThread.RunWorkerCompleted += threadWorkCompleted;
-            workerThread.RunWorkerAsync(from * 64 + to);
+                //SET TOKEN
+                playerYou.setToken(false);
+          
+                //DO CONNECTION STUFF
+                workerThread.DoWork += doThreadWork;
+                workerThread.RunWorkerCompleted += threadWorkCompleted;
+                workerThread.RunWorkerAsync(from * 64 + to);
         }
 
         public void enemyMoved(byte from, byte to) //Zaczynam nowy ruch, dostaje dane
         {
+
             //MOVE
             board[to] = board[from];
             board[from] = 32; 
             //SET TOKEN
             playerYou.setToken(true);
-            MessageBox.Show("Your TURN MAN");
+            windowReference.board.Invalidate();
         }
 
         private void doThreadWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            connectionReference.send(e.Argument.ToString());
+            if ((int)e.Argument != 128 * 64 + 128) //not black's first move
+            {
+                connectionReference.send(e.Argument.ToString());
+            }
             string info = connectionReference.receive();
             e.Result = Convert.ToInt32(info);
         }
