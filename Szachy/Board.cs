@@ -243,8 +243,10 @@ namespace Szachy
 
         private void threadWorkCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            int from = (int)e.Result / 64;
-            int to = (int)e.Result % 64;
+            int temp = (int)e.Result;
+            int to = temp % 64;
+            temp -= to;
+            int from = temp / 64;
             enemyMoved(Convert.ToByte(from),Convert.ToByte(to));
         }
     }
