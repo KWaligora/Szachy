@@ -10,34 +10,34 @@ namespace Szachy.Pieces
 {
     class Pawn : Piece
     {
-        private bool _moved = false;
+        private bool moved = false;
 
         public Pawn(byte id, Bitmap image, byte[] board) : base(id, image, board)
         {
         }
 
-        public override bool move(byte moveFrom, byte moveTo)
+        public override bool move(byte x, byte y)
         {
-            int movefromX = moveFrom / 8;
-            int movefromY = moveFrom % 8;
-            int moveToX = moveTo / 8;
-            int moveToY = moveTo % 8;
+            int xp = x / 8;
+            int xq = x % 8;
+            int yp = y / 8;
+            int yq = y % 8;
 
-            if (board[moveFrom] < 16)
+            if (board[x] < 16)
             {
-                if (IsMoved() &&  movefromY - moveToY  == 0 && movefromX - moveToX  == -1) return true;
-                if (!IsMoved() &&  movefromY - moveToY  == 0 && movefromX - moveToX  >= -2)
+                if (IsMoved() && xq - yq == 0 && xp - yp == -1) return true;
+                if (!IsMoved() && xq - yq == 0 && xp - yp >= -2)
                 {
-                    _moved = true;
+                    moved = true;
                     return true;
                 }
             }
             else
             {
-                if (IsMoved() &&  movefromY - moveToY  == 0 && movefromX - moveToX  == 1) return true;
-                if (!IsMoved() &&  movefromY - moveToY  == 0 && movefromX - moveToX  <= 2)
+                if (IsMoved() && xq - yq == 0 && xp - yp == 1) return true;
+                if (!IsMoved() && xq - yq == 0 && xp - yp <= 2)
                 {
-                    _moved = true;
+                    moved = true;
                     return true;
                 }
             }
@@ -47,7 +47,7 @@ namespace Szachy.Pieces
 
         private bool IsMoved()
         {
-            return _moved;
+            return moved;
         }
 
         public override bool special()

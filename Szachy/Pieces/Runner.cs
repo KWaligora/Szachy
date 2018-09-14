@@ -13,13 +13,13 @@ namespace Szachy.Pieces
         {
         } //moze pozostac pusty
 
-        public override bool move(byte moveFrom, byte moveTo)
+        public override bool move(byte x, byte y)
         {
-            int moveFromX = moveFrom / 8;
-            int moveFromY = moveFrom % 8;
-            int moveToX = moveTo / 8;
-            int moveToY = moveTo % 8;
-            if (Math.Abs(moveFromX - moveToX) == Math.Abs(moveFromY - moveToY)) return true;
+            int xp = x / 8;
+            int xq = x % 8;
+            int yp = y / 8;
+            int yq = y % 8;
+            if (Math.Abs(xp - yp) == Math.Abs(xq - yq)) return true;
 
             return false;
         }

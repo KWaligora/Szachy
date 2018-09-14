@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace Szachy
 {
-   abstract class Piece
+    abstract class Piece
     {
         Bitmap image;
         protected byte[] board;
-        public Piece(byte id, Bitmap image, byte [] board)
+
+        public Piece(byte id, Bitmap image, byte[] board)
         {
             this.image = image;
             this.id = id;
@@ -20,7 +21,7 @@ namespace Szachy
 
         protected byte id;
 
-        public abstract bool move(byte moveFrom, byte moveTo);
+        public abstract bool move(byte x, byte y);
 
         public Bitmap getImage()
         {
