@@ -12,23 +12,25 @@ namespace Szachy
        
         public static int Main(String[] args)
         {
-             /*Connection connection;
+             Connection connection;
 
-             switch (args[0].ToUpper()) {
-                 case "SERVER":
-                 connection = new Connection(true, args[1], short.Parse(args[2]));
-                     break;
-                 case "CLIENT":
-                 connection = new Connection(false, args[1], short.Parse(args[2]));
-                     break;
-                 default:
-                     Console.WriteLine("CRITICAL ERROR: args[0] is invalid; press any key to exit...");
-                     Console.ReadKey();
-                     Environment.Exit(1);
-                     connection = null; //otherwise you get using uninitialized variable error lol
-                     break;
-             }
+            switch (args[0].ToUpper())
+            {
+                case "SERVER":
+                    connection = new Connection(true, args[1], short.Parse(args[2]));
+                    break;
+                case "CLIENT":
+                    connection = new Connection(false, args[1], short.Parse(args[2]));
+                    break;
+                default:
+                    Console.WriteLine("CRITICAL ERROR: args[0] is invalid; press any key to exit...");
+                    Console.ReadKey();
+                    Environment.Exit(1);
+                    connection = null; //otherwise you get using uninitialized variable error lol
+                    break;
+            }
 
+             /*
              if (connection.isHost)
              {
                  connection.send("Hello there!");
@@ -40,7 +42,7 @@ namespace Szachy
                  connection.send("Hello too!");
              }*/
              
-            Board board = new Board();
+            Board board = new Board(connection);
             Application.Run(new Window(board));
             
             //Console.ReadKey();

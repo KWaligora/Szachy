@@ -18,8 +18,10 @@ namespace Szachy
         bool pieceSelected = false;
         byte selectedPiecePosition;
         bool whiteMove = true;
-        public Board()
+        public Connection connectionReference;
+        public Board(Connection connectionReference)
         {
+            this.connectionReference = connectionReference;
             pieceBitmap = global::Szachy.Properties.Resources.pieces;
             //czarne wieze
             pieces[0] = new Tower(0, pieceBitmap.Clone(new Rectangle(0, 0, 70, 70), pieceBitmap.PixelFormat), board);

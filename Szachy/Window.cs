@@ -50,10 +50,10 @@ namespace Szachy
             this.chatLog.Size = new System.Drawing.Size(180, 250);
             this.chatLog.TabIndex = 1;
             // 
-            // textBox1
+            // chatField
             // 
             this.chatField.Location = new System.Drawing.Point(610, 560);
-            this.chatField.Name = "textBox1";
+            this.chatField.Name = "chatField";
             this.chatField.Size = new System.Drawing.Size(180, 20);
             this.chatField.TabIndex = 2;
             // 
@@ -68,7 +68,6 @@ namespace Szachy
             this.ResumeLayout(false);
             this.PerformLayout();
 
-            initFields();
         }
 
         private void initFields()
@@ -106,5 +105,6 @@ namespace Szachy
             boardModel.onClick(Convert.ToByte(selectY * 8 + selectX));
             this.board.Invalidate();
         }
+
     }
 }
